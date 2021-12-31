@@ -11,48 +11,69 @@ namespace Bingo.Bingo
     internal class BingoSheet
     {
         private readonly int[][] _sheet;
+        private readonly int _size;
+        private readonly int _factor;
 
-        private BingoSheet()
+        private static readonly string[] _names = new[]
         {
-            _sheet = new[]
-            {
-                new[] {1, 16, 31, 46, 61},
-                new[] {2, 17, 32, 47, 62},
-                new[] {3, 18, 33, 48, 63},
-                new[] {4, 19, 34, 49, 64},
-                new[] {5, 20, 35, 50, 65}
-            };
+            "",
+            "X",
+            "YO",
+            "OMG",
+            "DUDE",
+            "BINGO",
+            "HELIOS",
+            "YOGHURT",
+            "BORNSENF",
+            "SUPERBING"
+        };
+
+        private BingoSheet(int size, int factor)
+        {
+            var gap = factor * size;
+            var invertedSheet = Enumerable
+                .Range(0, size)
+                .Select(index => Enumerable
+                    .Range(1, size)
+                    .Select(n => n + gap * index)
+                    .ToArray())
+                .ToArray();
+            _size = size;
+            _factor = factor;
+            _sheet = Transpose(invertedSheet);
         }
 
-        private BingoSheet(int[][] sheet)
+        private BingoSheet(int[][] sheet, int size, int factor)
         {
             _sheet = sheet;
+            _size = size;
+            _factor = factor;
         }
 
-        public static BingoSheet CreateDefault() 
-            => new();
+        public static BingoSheet CreateDefault(int size, int factor) 
+            => new(size, factor);
 
-        public static BingoSheet CreateRandom(Random randomGenerator) 
-            => new(GenerateSheet(randomGenerator));
+        public static BingoSheet CreateRandom(int size, int factor, Random randomGenerator) 
+            => new(GenerateSheet(size, factor, randomGenerator), size, factor);
 
         public IReadOnlyCollection<IReadOnlyCollection<int>> GetBingos()
         {
             var rows = Enumerable
-                .Range(0, 5)
+                .Range(0, _size)
                 .Select(index => _sheet[index]);
 
             var columns = Enumerable
-                .Range(0, 5)
+                .Range(0, _size)
                 .Select(index => _sheet.Select(row => row[index]).ToArray());
 
             var mainDiagonal = Enumerable
-                .Range(0, 5)
+                .Range(0, _size)
                 .Select(index => _sheet[index][index])
                 .ToArray();
 
             var secondaryDiagonal = Enumerable
-                .Range(0, 5)
-                .Select(index => _sheet[4 - index][index])
+                .Range(0, _size)
+                .Select(index => _sheet[_size - index - 1][index])
                 .ToArray();
 
             return rows
@@ -62,37 +83,52 @@ namespace Bingo.Bingo
                 .ToList();
         }
 
-        private static int[][] GenerateSheet(Random randomGenerator)
+        private static int[][] GenerateSheet(int size, int factor, Random randomGenerator)
         {
+            var gap = factor * size;
             var invertedSheet = Enumerable
-                .Range(0, 5)
+                .Range(0, size)
                 .Select(index => Enumerable
-                    .Range(1, 15)
-                    .Select(n => n + 15 * index)
+                    .Range(1, gap)
+                    .Select(number => number + gap * index)
                     .ToList()
-                    .PickRandomly(5, randomGenerator)
+                    .PickRandomly(size, randomGenerator)
                     .ToArray())
                 .ToArray();
 
-            return Enumerable
-                .Range(0, 5)
-                .Select(index => invertedSheet.Select(row => row[index]).ToArray())
-                .ToArray();
+            return Transpose(invertedSheet);
         }
+
+        private static int[][] Transpose(int[][] matrix)
+            => Enumerable
+                .Range(0, matrix[0].Length)
+                .Select(index => matrix.Select(row => row[index]).ToArray())
+                .ToArray();
 
         public override string ToString()
         {
             var stringBuilder = new StringBuilder();
+            var space = new string(' ', 2);
+            var divider = new string('-', 3);
             new[]
             {
-                new[] { " B", " I", " N", " G", " O" },
-                new[] { "--", "--", "--", "--", "--" }
+                _names[_size].Select(letter => $"{space}{letter}").ToArray(),
+                Enumerable.Repeat(divider, _size).ToArray()
             }
-                .Concat(_sheet.Select(row => row.Select(cell => cell < 10 ? $" {cell}" : $"{cell}")))
+                .Concat(_sheet.Select(row => row.Select(ToFormattedCell)))
                 .Select(row => string.Join(" | ", row))
                 .ForEach(row => stringBuilder.AppendLine(row));
 
             return stringBuilder.ToString();
+        }
+
+        private string ToFormattedCell(int cellValue) 
+        {
+            return cellValue < 10 
+                ? $"  {cellValue}" 
+                : cellValue < 100 
+                    ? $" {cellValue}"
+                    : $"{cellValue}";
         }
     }
 }

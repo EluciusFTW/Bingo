@@ -12,32 +12,34 @@ namespace Bingo.Bingo
         public override int Execute(CommandContext context, BingoSettings settings)
         {
             var randomGenerator = new Random();
+            Print(settings, "Settings");
             
             var sheet = GetSheet(settings, randomGenerator);
-            PrintSheet(sheet);
+            Print(sheet, "Bingo Sheet");
 
             Enumerable
                 .Repeat(false, settings.NumberOfPasses)
-                .ForEach(_ => {
-                    var results = RunSimulation(sheet, settings, randomGenerator); 
+                .ForEach(_ =>
+                {
+                    var results = RunSimulation(sheet, settings, randomGenerator);
                     PrintResults(settings, results);
                 });
 
             return 0;
         }
 
-        private static void PrintSheet(BingoSheet sheet)
+        private static void Print(object input, string headLine)
         {
             Console.WriteLine();
-            Line("Bingo Sheet");
+            Line(headLine);
             Console.WriteLine();
-            Console.WriteLine(sheet.ToString());
+            Console.WriteLine($"{input}");
         }
 
         private static BingoSheet GetSheet(BingoSettings settings, Random randomGenerator)
             => settings.GenerateRandomSheet
-                ? BingoSheet.CreateRandom(randomGenerator)
-                : BingoSheet.CreateDefault();
+                ? BingoSheet.CreateRandom(settings.SheetSize, settings.SheetFactor, randomGenerator)
+                : BingoSheet.CreateDefault(settings.SheetSize, settings.SheetFactor);
 
         private static void Line(string line)
         {
@@ -50,7 +52,8 @@ namespace Bingo.Bingo
 
         private static IReadOnlyCollection<Bingo> RunSimulation(BingoSheet sheet, BingoSettings settings, Random randomGenerator)
         {
-            var allNumbers = Enumerable.Range(1, 75).ToList();
+            var maximum = settings.SheetSize * settings.SheetSize * settings.SheetFactor;
+            var allNumbers = Enumerable.Range(1, maximum).ToList();
             var bingoCombinations = sheet.GetBingos();
 
             return Enumerable
