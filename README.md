@@ -3,7 +3,11 @@
 ## Introduction
 During my visit at my parents this Christmas I was introduced to the game of [Bingo on the German TV Channel NDR](https://www.ndr.de/fernsehen/sendungen/bingo_die_umweltlotterie/index.html). We all had a sheet, and as it seems to happen regularly, we all lost.
 
-This made me curious: What are actually the odds at winning at this game? What if we change the size of the sheet? What if we draw more numbers? What if we change the range of numbers for each column? 
+This made me curious: 
+* What are actually the odds at winning at this game? 
+* What if we change the size of the sheet? 
+* What if we draw more numbers? 
+* What if we change the range of numbers for each column? 
 
 So I wrote a program ...
 
