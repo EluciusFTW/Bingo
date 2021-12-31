@@ -70,7 +70,7 @@ namespace Bingo.Bingo
                     .Range(1, 15)
                     .Select(n => n + 15 * index)
                     .ToList()
-                    .NOutOf(5, randomGenerator)
+                    .PickRandomly(5, randomGenerator)
                     .ToArray())
                 .ToArray();
 

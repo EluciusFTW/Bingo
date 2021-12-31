@@ -15,9 +15,9 @@ namespace Bingo.Extensions
         }
 
         internal static IReadOnlyCollection<int> NOutOf(this IReadOnlyCollection<int> source, int nrOfElements)
-            => source.NOutOf(nrOfElements, new Random());
+            => source.PickRandomly(nrOfElements, new Random());
 
-        internal static IReadOnlyCollection<int> NOutOf(this IReadOnlyCollection<int> source, int nrOfElements, Random randomGenerator)
+        internal static IReadOnlyCollection<int> PickRandomly(this IReadOnlyCollection<int> source, int nrOfElements, Random randomGenerator)
         {
             var alreadyHit = new List<int>();
             var results = new List<int>();

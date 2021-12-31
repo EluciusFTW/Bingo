@@ -57,7 +57,7 @@ namespace Bingo.Bingo
                 .Repeat(false, settings.NumberOfGames)
                 .Select(_ =>
                 {
-                    var numbers = allNumbers.NOutOf(settings.NumberOfNumbersToDraw, randomGenerator);
+                    var numbers = allNumbers.PickRandomly(settings.NumberOfNumbersToDraw, randomGenerator);
                     return bingoCombinations
                         .Where(bingo => bingo.All(num => numbers.Contains(num)))
                         .Count();
