@@ -1,10 +1,11 @@
-﻿using Spectre.Console;
+﻿using Bingo.Extensions;
+using Spectre.Console;
 using Spectre.Console.Cli;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace bingo
+namespace Bingo.Bingo
 {
     internal partial class BingoCommand : Command<BingoSettings>
     {

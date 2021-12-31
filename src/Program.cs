@@ -1,6 +1,7 @@
-﻿using Spectre.Console.Cli;
+﻿using Bingo.Bingo;
+using Spectre.Console.Cli;
 
-namespace bingo
+namespace Bingo
 {
     internal class Program
     {

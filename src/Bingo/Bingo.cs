@@ -1,4 +1,4 @@
-﻿namespace bingo
+﻿namespace Bingo.Bingo
 {
     internal partial class BingoCommand
     {

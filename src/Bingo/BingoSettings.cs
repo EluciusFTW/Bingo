@@ -1,7 +1,7 @@
 ﻿using Spectre.Console.Cli;
 using System.ComponentModel;
 
-namespace bingo
+namespace Bingo.Bingo
 {
     internal class BingoSettings : CommandSettings
     {

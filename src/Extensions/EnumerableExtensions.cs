@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace bingo
+namespace Bingo.Extensions
 {
     internal static class EnumerableExtensions
     {
