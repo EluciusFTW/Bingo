@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Bingo.Extensions
 {
@@ -11,6 +12,24 @@ namespace Bingo.Extensions
             {
                 action(item);
             }
+        }
+
+        internal static IReadOnlyCollection<int> NOutOf(this IReadOnlyCollection<int> source, int nrOfElements)
+            => source.NOutOf(nrOfElements, new Random());
+
+        internal static IReadOnlyCollection<int> NOutOf(this IReadOnlyCollection<int> source, int nrOfElements, Random randomGenerator)
+        {
+            var alreadyHit = new List<int>();
+            var results = new List<int>();
+            while (alreadyHit.Count < nrOfElements)
+            {
+                var element = randomGenerator.Next(source.Count);
+                if (alreadyHit.Contains(element)) continue;
+
+                alreadyHit.Add(element);
+                results.Add(source.ElementAt(element));
+            }
+            return results;
         }
     }
 }

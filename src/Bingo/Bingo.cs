@@ -2,6 +2,6 @@
 {
     internal partial class BingoCommand
     {
-        internal record Bingo(int arity, int number);
+        internal record Bingo(int Arity, int Number);
     }
 }
