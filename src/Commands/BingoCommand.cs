@@ -1,11 +1,12 @@
-﻿using Bingo.Extensions;
+﻿using Bingo.Bingo;
+using Bingo.Extensions;
 using Spectre.Console;
 using Spectre.Console.Cli;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Bingo.Bingo
+namespace Bingo.Commands
 {
     internal partial class BingoCommand : Command<BingoSettings>
     {
@@ -48,7 +49,7 @@ namespace Bingo.Bingo
             AnsiConsole.Write(rule);
         }
 
-        private static IReadOnlyCollection<Bingo> RunSimulation(BingoSheet sheet, BingoSettings settings, Random randomGenerator)
+        private static IReadOnlyCollection<BingoResultGrouping> RunSimulation(BingoSheet sheet, BingoSettings settings, Random randomGenerator)
         {
             var maximum = settings.SheetSize * settings.SheetSize * settings.SheetFactor;
             var allNumbers = Enumerable.Range(1, maximum).ToList();
@@ -65,17 +66,17 @@ namespace Bingo.Bingo
                 })
                 .GroupBy(score => score)
                 .OrderBy(grp => grp.Key)
-                .Select(grp => new Bingo(grp.Key, grp.Count()))
+                .Select(grp => new BingoResultGrouping(grp.Key, grp.Count()))
                 .ToList();
         }
 
-        private static void PrintResults(BingoSettings settings, IReadOnlyCollection<Bingo> bingos)
+        private static void PrintResults(BingoSettings settings, IReadOnlyCollection<BingoResultGrouping> bingoResultGroups)
         {
             Line("Results");
-            foreach (var b in bingos)
+            foreach (var resultGroup in bingoResultGroups)
             {
-                var frequency = (double)b.Number / settings.NumberOfGames;
-                Console.WriteLine($"You made a '{b.Arity}'-Bingo {b.Number} times ({frequency:P2})");
+                var frequency = (double)resultGroup.Number / settings.NumberOfGames;
+                Console.WriteLine($"You made a '{resultGroup.Arity}'-Bingo {resultGroup.Number} times ({frequency:P2})");
             }
             Console.WriteLine();
         }

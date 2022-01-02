@@ -1,4 +1,4 @@
-﻿using Bingo.Bingo;
+﻿using Bingo.Commands;
 using Spectre.Console.Cli;
 
 namespace Bingo
