@@ -14,6 +14,12 @@ namespace Bingo
                     .WithDescription("Runs a bingo simulation with a set amount of games against a fixed bingo sheet.")
             );
 
+            app.Configure(configuration =>
+                configuration
+                    .AddCommand<CreditsCommand>("credits")
+                    .WithDescription("Shows the credits.")
+            );
+
             app.Run(args);
         }
     }
