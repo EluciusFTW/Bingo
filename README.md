@@ -42,6 +42,10 @@ For more information, just run
 .\Bingo.exe run -h
 ````
 
+Here's an example of running a simulation with two passes, each of 2.5 million games, with a board size of 4 and drawing 11 numbers:
+
+![Screenshot a bingo simulation](./sample/bingo-sample.png)
+
 ## Feedback and Contributing
 All feedback welcome!
 All contributions are welcome!

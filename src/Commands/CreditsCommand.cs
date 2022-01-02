@@ -28,8 +28,8 @@ namespace Bingo.Commands
                 " - following me on Twitter [blue]@EluciusFTW[/]",
                 string.Empty,
                 "Special thanks to ",
-                " - [blue]@HonigCaro[/] for combinatorical discussions",
-                " - [blue]@Firstdrafthell[/] for the awesome Spectre.Console package.",
+                " - [blue]@HonigCaro[/] for rubber-ducking and combinatorical discussions",
+                " - [blue]@Firstdrafthell[/] Patrik Svensson for the awesome Spectre.Console package.",
                 string.Empty
             }
                 .ForEach(line => AnsiConsole.MarkupLine($"[green]{line}[/]"));
