@@ -24,8 +24,8 @@ namespace Bingo.Bingo
             "BINGO",
             "BLINGO",
             "BAZINGO",
-            "BAMBINGO",
-            "BADEBINGO"
+            "FLAMINGO",
+            "WHAMBINGO"
         };
 
         private BingoSheet(int size, int factor)
