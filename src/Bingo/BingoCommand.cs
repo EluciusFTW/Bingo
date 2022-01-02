@@ -15,7 +15,7 @@ namespace Bingo.Bingo
             Print(settings, "Settings");
             
             var sheet = GetSheet(settings, randomGenerator);
-            Print(sheet, "Bingo Sheet");
+            Print(sheet, "Your Sheet");
 
             Enumerable
                 .Repeat(false, settings.NumberOfPasses)
@@ -30,9 +30,7 @@ namespace Bingo.Bingo
 
         private static void Print(object input, string headLine)
         {
-            Console.WriteLine();
             Line(headLine);
-            Console.WriteLine();
             Console.WriteLine($"{input}");
         }
 

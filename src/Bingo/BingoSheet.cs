@@ -17,15 +17,15 @@ namespace Bingo.Bingo
         private static readonly string[] _names = new[]
         {
             "",
-            "X",
-            "YO",
-            "OMG",
-            "DUDE",
+            "B",
+            "GO",
+            "BIN",
+            "INGO",
             "BINGO",
-            "HELIOS",
-            "YOGHURT",
-            "BORNSENF",
-            "SUPERBING"
+            "BLINGO",
+            "BAZINGO",
+            "BAMBINGO",
+            "BADEBINGO"
         };
 
         private BingoSheet(int size, int factor)

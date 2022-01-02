@@ -37,7 +37,7 @@ In this example, the flag
 
 All flags are independently useable (but may restrict each other, e.g., you can't draw more numbers than are available) and combinable.
 
-For more information, just call
+For more information, just run
 ```PS
 .\Bingo.exe run -h
 ````
