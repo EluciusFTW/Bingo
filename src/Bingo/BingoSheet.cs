@@ -12,7 +12,6 @@ namespace Bingo.Bingo
     {
         private readonly int[][] _sheet;
         private readonly int _size;
-        private readonly int _factor;
 
         private static readonly string[] _names = new[]
         {
@@ -39,7 +38,6 @@ namespace Bingo.Bingo
                     .ToArray())
                 .ToArray();
             _size = size;
-            _factor = factor;
             _sheet = Transpose(invertedSheet);
         }
 
@@ -47,7 +45,6 @@ namespace Bingo.Bingo
         {
             _sheet = sheet;
             _size = size;
-            _factor = factor;
         }
 
         public static BingoSheet CreateDefault(int size, int factor) 
@@ -123,12 +120,10 @@ namespace Bingo.Bingo
         }
 
         private string ToFormattedCell(int cellValue) 
-        {
-            return cellValue < 10 
-                ? $"  {cellValue}" 
-                : cellValue < 100 
+            => cellValue < 10
+                ? $"  {cellValue}"
+                : cellValue < 100
                     ? $" {cellValue}"
                     : $"{cellValue}";
-        }
     }
 }
